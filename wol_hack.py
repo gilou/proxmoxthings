@@ -2,7 +2,8 @@
 
 # Quick & dirty script to catch WakeOnLan packets and start Proxmox VMs if required
 # WTFPL
-# Requires pcap, dpkt, available on proxmox through apt, yey \o/
+# Requires pcap, dpkt, available on proxmox through apt (python-pypcap python-dpkt), yey \o/
+# Not tested on Python 3 as python is 2.7 by default on proxmox 3
 
 import subprocess, pcap, dpkt, binascii, re
 
@@ -45,4 +46,4 @@ for ts, pkt in pc:
             r = subprocess.check_output(['qm', 'start', vm_macs[macd]])
             print(r)
         except subprocess.CalledProcessError:
-            print('Start failed, probably because VM is already running')
+            print('Start failed, probably because VM is already running, I know, I could have checked, but well.')
